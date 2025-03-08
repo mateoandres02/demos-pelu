@@ -70,7 +70,13 @@ const getInitialDate = (isMobile) => {
     const diff = day === 0 ? -6 : 1 - day;
     today.setDate(today.getDate() + diff);
   }
-  today.setHours(today.getHours() - 6);
+
+  /** ANTES ESTABA EN - 6 */
+
+  today.setHours(today.getHours() - 1);
+
+  console.log(today);
+
   return today.toISOString().split('T')[0];
 
 };

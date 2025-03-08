@@ -110,11 +110,19 @@ const getToday = () => {
 
   const today = new Date();
   today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
-  today.setHours(today.getHours() - 3);
+
+  /** CAMBIOS HORA  ERA  -3 ANTES*/
+
+  today.setHours(today.getHours() + 3);
   const formattedDate = today.toISOString().split('T')[0];
+
+  console.log(today)
+  console.log(formattedDate)
+  
   return formattedDate;
 
 }
+
 
 
 function formattedEndDate(dateString) {
