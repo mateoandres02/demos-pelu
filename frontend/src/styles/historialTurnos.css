@@ -1,0 +1,13 @@
+.table-history-container {
+  padding-bottom: 2.5rem;
+}
+
+.agregado {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.eliminado {
+  background-color: #f8d7da;
+  color: #721c24;
+}
