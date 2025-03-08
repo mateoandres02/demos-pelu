@@ -339,7 +339,7 @@ async function handleSubmit(form, date, dataUserActive, $modal, checksActivated,
       Service: null
     }
 
-    const url = 'https://peluqueria-invasion-backend.vercel.app/turns';
+    const url = 'https://demos-pelu-lnw1.vercel.app/turns';
     // const url = 'http://localhost:3001/turns';
 
     const options = {
@@ -388,7 +388,7 @@ async function handleSubmit(form, date, dataUserActive, $modal, checksActivated,
           date: date.date
         };
 
-        urlRegularTurn = 'https://peluqueria-invasion-backend.vercel.app/recurrent_turns';
+        urlRegularTurn = 'https://demos-pelu-lnw1.vercel.app/recurrent_turns';
         // urlRegularTurn = 'http://localhost:3001/recurrent_turns';
 
         optionsRegularTurn = {

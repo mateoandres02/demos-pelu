@@ -1,6 +1,6 @@
 const logActions = async (data) => {
   try {
-      const response = await fetch('https://peluqueria-invasion-backend.vercel.app/historyturns', { // Cambia la URL según tu configuración
+      const response = await fetch('https://demos-pelu-lnw1.vercel.app/historyturns', { // Cambia la URL según tu configuración
          method: 'POST',
          headers: {
              'Content-Type': 'application/json',
