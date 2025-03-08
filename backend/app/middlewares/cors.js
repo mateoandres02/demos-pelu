@@ -1,4 +1,4 @@
-const allowedOrigins = ['https://peluqueria-invasion.vercel.app', 'http://localhost:5173'];
+const allowedOrigins = ['https://demos-pelu.vercel.app', 'http://localhost:5173'];
 
 export const corsOptions = {
   origin: function (origin, callback) {
