@@ -506,7 +506,7 @@ const popVoucher = async (id) => {
 const getWorkSessions = async () => {
   // const response = await fetch(`http://localhost:3001/worksessions`);
 
-  const response = await fetch(`http://demos-pelu-lnw1.vercel.app/worksessions`);
+  const response = await fetch(`https://demos-pelu-lnw1.vercel.app/worksessions`);
   return response;
 };
 
@@ -515,7 +515,7 @@ const getWorkSessionsByDate = async (dateParam) => {
   //   credentials: 'include'
   // });
 
-  const response = await fetch(`http://demos-pelu-lnw1.vercel.app/worksessions/${dateParam}`, {
+  const response = await fetch(`https://demos-pelu-lnw1.vercel.app/worksessions/${dateParam}`, {
     credentials: 'include'
   });
   return response;
