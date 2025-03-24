@@ -368,7 +368,7 @@ const postWorkSession = async (fechaInicio, horarioInicio) => {
     //   credentials: 'include',
     // });
 
-    const response = await fetch('http://demos-pelu-lnw1.vercel.app/worksessions', {
+    const response = await fetch('https://demos-pelu-lnw1.vercel.app/worksessions', {
       method: 'POST',
       headers: {
         'Content-Type':'application/json',
@@ -414,7 +414,7 @@ const updateWorkSession = async ( horaFin, cantHoras) => {
     //   credentials: 'include',
     // });
 
-    const response = await fetch(`http://localhost:3001/demos-pelu-lnw1.vercel.app/${sessionId}`, {
+    const response = await fetch(`https://demos-pelu-lnw1.vercel.app/${sessionId}`, {
       method: 'PUT',
       headers: {
         'Content-Type':'application/json',
