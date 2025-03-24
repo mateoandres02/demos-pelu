@@ -52,6 +52,13 @@ const menuAdmin = (user) => {
                             Recuento de vales y descuentos
                         </a>
                     </li>
+                    <li>
+                        <a href="#registro-trabajo">
+                            <img src="/assets/icons/work.svg" alt="Registrar sesion de trabajo" class="icon">
+                            Registro de sesion de trabajo
+                        </a>
+                    </li>
+
                 </ul>
                 <div class="button-logout-container">
                     <button id="logout">

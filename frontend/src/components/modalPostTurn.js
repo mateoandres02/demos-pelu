@@ -339,8 +339,8 @@ async function handleSubmit(form, date, dataUserActive, $modal, checksActivated,
       Service: null
     }
 
-    const url = 'https://demos-pelu-lnw1.vercel.app/turns';
-    // const url = 'http://localhost:3001/turns';
+    // const url = 'https://demos-pelu-lnw1.vercel.app/turns';
+    const url = 'http://localhost:3001/turns';
 
     const options = {
       method: 'POST',

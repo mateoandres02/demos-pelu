@@ -503,6 +503,24 @@ const popVoucher = async (id) => {
   return response;
 }
 
+const getWorkSessions = async () => {
+  // const response = await fetch(`http://localhost:3001/worksessions`);
+
+  const response = await fetch(`http://demos-pelu-lnw1.vercel.app/worksessions`);
+  return response;
+};
+
+const getWorkSessionsByDate = async (dateParam) => {
+  // const response = await fetch(`http://localhost:3001/worksessions/${dateParam}`, {
+  //   credentials: 'include'
+  // });
+
+  const response = await fetch(`http://demos-pelu-lnw1.vercel.app/worksessions/${dateParam}`, {
+    credentials: 'include'
+  });
+  return response;
+};
+
 
 export {
   login,
@@ -536,5 +554,7 @@ export {
   getVouchersFilteredByDate,
   getVouchersFilteredByBarber,
   getHistoryTurns,
-  getVoucherById
+  getVoucherById,
+  getWorkSessions,
+  getWorkSessionsByDate
 };

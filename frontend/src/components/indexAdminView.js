@@ -11,6 +11,8 @@ import { postEmployee, modal, usersData, manageEmployeesView } from './manageEmp
 import { containerHistoryView, infoSectionHistoryTurnsView, tableTurnsHistory, historyTurnsRender, setupFilters } from './historialTurnos.js';
 import { configParamsView, infoSectionParamsView, modalServices, serviceData, configParamsInitialView, configPaymentView, tablePaymentEdit } from './configParams.js';
 import { voucherView, infoSectionVoucherView, voucherAddView, modalVoucher, tableVouchersColumns, vouchersRender, setupFiltersVouchers } from './voucher.js';
+import { containerWorkSessionsView, infoSectionWorkSessionsView, tableWorkSessions, handleStartButton, handleEndButton, sessionsRender, addDateFilterListenerWorkSessions } from './workSession.js';
+import deviceId from "./deviceId.js"
 
 import { loadBarberSelect, handleChangeBarber } from '../utils/selectables.js';
 import { addBarberFilterListener, addDateFilterListener, addEndWeekFilterListner, addDateFilterListenerVoucher, addBarberFilterListenerVoucher } from '../utils/filters.js';
@@ -18,6 +20,7 @@ import { cancelPostModal, showPostModal } from '../utils/modal.js';
 import { submitRecord, deleteRecord, updateRecord } from '../utils/crud.js';
 
 import "../styles/style.css";
+import { formatRange } from '@fullcalendar/core/index.js';
 
 
 const indexView = async (data) => {
@@ -231,6 +234,33 @@ const indexView = async (data) => {
                 
                 break;
 
+            case '#registro-trabajo':
+
+                console.log("devId",deviceId);
+
+                app.innerHTML += containerWorkSessionsView
+                let $containerWorkSessionsView = document.querySelector('.containerWorkSessionsView');
+                
+                $containerWorkSessionsView.insertAdjacentHTML('beforeend',infoSectionWorkSessionsView);
+
+                $containerWorkSessionsView.insertAdjacentHTML('beforeend', tableWorkSessions);
+                
+                let $tableBodyWorkSessionsView = document.querySelector('.table-worksession-body');
+
+                let $dateFilter = document.querySelector('#filterDateInputWorkSession');
+            
+                await sessionsRender($tableBodyWorkSessionsView, $dateFilter.value);
+
+                addDateFilterListenerWorkSessions($tableBodyWorkSessionsView, $dateFilter);
+
+                const buttonStart = document.querySelector('#startSession');
+                const buttonEnd = document.querySelector('#endSession');
+
+                handleStartButton(buttonStart);
+                handleEndButton(buttonEnd);
+
+                break;
+
             default:
                 app.innerHTML += presentation(userActive);
                 
@@ -239,6 +269,7 @@ const indexView = async (data) => {
 
     } catch (error) {
         alert('Error al renderizar la sección.')
+        console.log(error)
     } finally {
         const $loader = document.querySelector('.bg-loader-container');
         if ($loader) $loader.remove();
