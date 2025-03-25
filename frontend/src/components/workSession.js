@@ -191,7 +191,7 @@ const handleStartButton = (button) => {
 
 //DETENER CRONÓMETRO
 const handleEndButton = (button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
         if (tiempoInicio) {
             const tiempoActual = Date.now();
             const diferencia = tiempoActual - tiempoInicio;
@@ -224,7 +224,7 @@ const handleEndButton = (button) => {
             if (cronometro) cronometro.textContent = "00:00:00";
 
             //actualizar registro
-            updateWorkSession(horarioFin, cantHoras);
+            await updateWorkSession(horarioFin, cantHoras);
 
             //actualizar pagina para que se vea reflejado el cambio
             window.location.reload();
