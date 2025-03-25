@@ -416,7 +416,7 @@ const updateWorkSession = async ( horaFin, cantHoras) => {
     //   credentials: 'include',
     // });
 
-    const response = await fetch(`https://demos-pelu-lnw1.vercel.app/${sessionId}`, {
+    const response = await fetch(`https://demos-pelu-lnw1.vercel.app/worksessions/${sessionId}`, {
       method: 'PUT',
       headers: {
         'Content-Type':'application/json',
