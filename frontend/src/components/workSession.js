@@ -93,7 +93,7 @@ const rows = (dataSessions) => {
     const dateFormatted = session.FechaSesion ? formatOnlyDate(session.FechaSesion): "-";
     const timeStart = session.HorarioInicio ? formatOnlyTime(session.HorarioInicio): "-";
     const timeEnd = session.HorarioFin ? formatOnlyTime(session.HorarioFin): "-";
-
+    console.log("SESSION", session)
     row += `
       <tr key=${session.Id}>
         <td>${dateFormatted || ''}</td>
