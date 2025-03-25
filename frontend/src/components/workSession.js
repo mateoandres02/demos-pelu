@@ -61,7 +61,7 @@ const sessionsRender = async (table, selectedDate = null) => {
       responseSessions = await getWorkSessions();
     }
 
-    if ( !responseSessions || !responseSessions.ok) {
+    if ( responseSessions.message ) {
       table.innerHTML = `
         <tr>
           <td colspan="5" No se encontraron sesiones para los filtros aplicados.</td>
