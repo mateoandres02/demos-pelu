@@ -405,6 +405,8 @@ const updateWorkSession = async ( horaFin, cantHoras) => {
       CantHoras: cantHoras
     };
 
+    console.log("data", data)
+
     // const response = await fetch(`http://localhost:3001/worksessions/${sessionId}`, {
     //   method: 'PUT',
     //   headers: {

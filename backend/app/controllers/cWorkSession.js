@@ -115,10 +115,14 @@ const deleteWorkSession = async (req, res) => {
 const updateSession = async (req, res) => {
     try {
         const id = req.params.id;
+        console.log("id", id)
         const { HorarioFin, CantHoras } = req.body;
+        console.log("reqbody", req.body)
+        
   
         // Verificar si se envió al menos uno de los campos requeridos
         if (HorarioFin === undefined && CantHoras === undefined) {
+            console.log("entro al primer if")
             return res.status(400).send({
                 message: "Valores de horarioFin y CantHoras no especificadas."
             });
@@ -126,14 +130,18 @@ const updateSession = async (req, res) => {
   
         // Construir objeto con solo los campos a actualizar
         const updateData = {};
-        if (HorarioFin !== undefined) updateData.HorarioFin = HorarioFin;
-        if (CantHoras !== undefined) updateData.CantHoras = CantHoras;
+        updateData.HorarioFin = HorarioFin;
+        updateData.CantHoras = CantHoras;
+        console.log("updData", updateData);
+        // if (HorarioFin !== undefined) updateData.HorarioFin = HorarioFin;
+        // if (CantHoras !== undefined) updateData.CantHoras = CantHoras;
   
         const response = await db.update(work_sessions)
             .set(updateData)
             .where(eq(work_sessions.Id, id))
             .returning();
-  
+            console.log("response worksessions", response)
+
         if (response.length) {
             res.send(response[0]);
         } else {
