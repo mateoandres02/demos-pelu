@@ -109,7 +109,7 @@ const clientsData = async () => {
       return '<p class="empty">No hay clientes registrados.</p>'
     }
   } catch (error) {
-    alert('Error al cargar los clientes.');
+    console.log('Error al cargar los clientes.');
   };
 };
 

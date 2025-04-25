@@ -102,6 +102,11 @@ function determinateRangeOfDays(currentDate, isMobile) {
 }
 
 
+// const putChangeHourOfTurn = async (idTurn, dateStart, dateEnd, idBarber) => {
+//   const response = await fetch('')
+
+// }
+
 export {
   eventInfo,
   dateInfo,

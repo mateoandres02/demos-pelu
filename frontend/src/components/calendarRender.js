@@ -43,7 +43,6 @@ async function calendarRender (modalElement, data) {
     slotLabelInterval: '00:30:00',
     slotDuration: '00:30:00',
     slotMinTime: '08:00:00',
-    editable: false,
     dayMaxEventRows: true,
     nowIndicator: true,
     views: {
@@ -75,13 +74,44 @@ async function calendarRender (modalElement, data) {
     dateClick: function(info) {
       dateInfo(info, data, modalElement)
     },
-    selectable: false,
     locale: esLocale,
     eventOverlap: false,
     datesSet: function(info) {
       dateSetStyles();
-    }
-      
+    },
+    editable: false,
+    selectable: false,
+    // editable: true,
+    // selectable: true,
+    // eventResize: function(info) {
+    //   // Esto se ejecuta cuando el usuario redimensiona (estira o reduce) un evento:
+
+    //   console.log("Evento redimensionado:");
+    //   console.log("Nuevo inicio:", info.event.start);
+    //   console.log("Nuevo fin:", info.event.end);
+
+    //   const dateStart = new Date(info.event.start);
+    //   dateStart.setHours(dateStart.getHours() + 3);
+    //   console.log('datestart', dateStart);
+    
+    //   const dateEnd = new Date(info.event.end);
+    //   dateEnd.setHours(dateEnd.getHours() + 3);
+    //   console.log('dateend', dateEnd);
+
+    //   console.log(info.event)
+    //   putChangeHourOfTurn(info.event._def.publicId, dateStart, dateEnd, data.user.Id);
+
+    //   // Acá podrías hacer una petición a tu backend para guardar los cambios
+    // },
+    // eventDrop: function(info) {
+    //   // Esto se dispara cuando arrastran el evento a otro día u hora:
+
+    //   console.log("Evento movido:");
+    //   console.log("Nuevo inicio:", info.event.start);
+    //   console.log("Nuevo fin:", info.event.end);
+    
+    //   // También podrías guardar los cambios acá
+    // },
   });
 
   calendar.render();
