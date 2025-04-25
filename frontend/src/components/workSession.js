@@ -35,7 +35,7 @@ const infoSectionWorkSessionsView = `
 </div>`
 
 const tableWorkSessions = `
-  <div class="table-container table-history-container table-worksession-container">
+  <div class="table-container table-worksession-container">
     <table>
       <thead>
         <tr>
@@ -55,6 +55,7 @@ const tableWorkSessions = `
 const sessionsRender = async (table, selectedDate = null) => {
   let responseSessions;
   try {
+    // console.log("selectedDate", selectedDate)
     if (selectedDate) {
       responseSessions = await getWorkSessionsByDate(selectedDate);
     } else {
@@ -78,22 +79,22 @@ const sessionsRender = async (table, selectedDate = null) => {
 
   } catch (error) {
     alert("Error al renderizar el listado de sesiones");
-    console.log('error', error);
+    // console.log('error', error);
   }
 };
 
 const rows = (dataSessions) => {
   let row = '';
 
-  console.log("screen specs w ", screen.width)
-  console.log("screen specs h ", screen.height)
+  // console.log("screen specs w ", screen.width)
+  // console.log("screen specs h ", screen.height)
 
   dataSessions.forEach((session) => {
     // const dateCreate = session.FechaSesion ? parseDate(session.FechaSesion) : {};
     const dateFormatted = session.FechaSesion ? formatOnlyDate(session.FechaSesion): "-";
     const timeStart = session.HorarioInicio ? formatOnlyTime(session.HorarioInicio): "-";
     const timeEnd = session.HorarioFin ? formatOnlyTime(session.HorarioFin): "-";
-    console.log("SESSION", session)
+    // console.log("SESSION", session)
     row += `
       <tr key=${session.Id}>
         <td>${dateFormatted || ''}</td>
@@ -163,7 +164,9 @@ const handleStartButton = (button) => {
             localStorage.setItem("tiempoInicio", tiempoInicio);
 
             // Capturar fecha (YYYY-MM-DD)
-            const fechaInicio = new Date().toISOString().split("T")[0];
+            // const fechaInicio = new Date().toISOString().split("T")[0];
+            const fechaInicio = new Date().toLocaleDateString('en-CA'); // formato YYYY-MM-DD
+            console.log("VIENDO FECHA INICIO", fechaInicio)
 
             // Capturar hora exacta (HH:MM:SS)
             const horarioInicio = new Date().toLocaleTimeString("es-AR", {
@@ -173,8 +176,8 @@ const handleStartButton = (button) => {
                 second: "2-digit"
             });
 
-            console.log(`Fecha de inicio: ${fechaInicio}`);
-            console.log(`Horario de inicio: ${horarioInicio}`);
+            // console.log(`Fecha de inicio: ${fechaInicio}`);
+            // console.log(`Horario de inicio: ${horarioInicio}`);
 
             // Guardar en localStorage si quieres persistirlo
             localStorage.setItem("fechaInicio", fechaInicio);
@@ -185,7 +188,7 @@ const handleStartButton = (button) => {
 
         intervalo = setInterval(actualizarCronometro, 1000);
         actualizarCronometro(); // Para mostrar el tiempo de inmediato sin esperar un segundo
-        console.log("Cronómetro iniciado");
+        // console.log("Cronómetro iniciado");
     });
 };
 
@@ -208,8 +211,8 @@ const handleEndButton = (button) => {
               second: "2-digit"
           });
 
-            console.log(`Tiempo trabajado: ${horas}h ${minutos}m ${segundos}s`);
-            console.log(`Horario de finalizacion de la sesion: ${horarioFin}`)
+            // console.log(`Tiempo trabajado: ${horas}h ${minutos}m ${segundos}s`);
+            // console.log(`Horario de finalizacion de la sesion: ${horarioFin}`)
             
             // const cantHoras = `${horas}h ${minutos}m`
             const cantHoras = `${horas}h ${minutos}m`

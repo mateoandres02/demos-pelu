@@ -22,6 +22,7 @@
 
     width: 80%;
     max-width: 500px;
+    min-width: 350px;
     
     color: var(--light-grey-letter);
     font-weight:600;
@@ -215,6 +216,30 @@ input[type="number"] {
 
 .modal-footer-without-padding {
     padding: 1rem 0rem !important;
+}
+
+.autocomplete-item:hover {
+    background-color: #f0f0f0;
+}
+
+.autocomplete-container {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-edit {
+    background-color: #307cc4; /* fondo oscuro */
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+    background-color: #1b1a2d; /* un tono más claro al hacer hover */
+    color: #ffffff;
+    cursor: pointer;
 }
 
 @media (640px > width) {    

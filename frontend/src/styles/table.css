@@ -1,7 +1,9 @@
 .table-container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     min-height: 100px;
+    max-height: 600px;
+    overflow-y: auto;
     height: auto;
   
     margin: 0 auto 3rem;
@@ -54,15 +56,20 @@
 }
 
 .table-container th:nth-child(3), .table-container td:nth-child(3),
-.table-container th:nth-child(4), .table-container td:nth-child(4),
 .table-container th:nth-child(5) div, .table-container td:nth-child(5) div,
 .table-container th:nth-child(6), .table-container td:nth-child(6),
 .table-container th:nth-child(9), .table-container td:nth-child(9),
-.table-container th:nth-child(10), .table-container td:nth-child(10) { 
+.table-container th:nth-child(10), .table-container td:nth-child(10) {
     white-space: nowrap; 
     max-width: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.table-container th:nth-child(3), .table-container td:nth-child(3),
+.table-container th:nth-child(6), .table-container td:nth-child(6),
+.table-container th:nth-child(9), .table-container td:nth-child(9) {
+    min-width: 150px;
 }
 
 .table-container .table-body tr td:last-child {
@@ -80,11 +87,11 @@
 }
 
 .table-container.table-manageemployees-container {
-    max-width: 700px;
+    max-width: 800px;
+    min-width: 500px;
 }
 
 .table-manageemployees-container th:nth-child(5), .table-manageemployees-container td:nth-child(5) {
-    max-width: 65px;
     overflow: visible;
 }
 
@@ -151,6 +158,10 @@
     padding-bottom: 2.5rem;
 }
 
+.table-payment-container table {
+    width: 700px !important;
+}
+
 .table-payment-container th:nth-child(3), .table-payment-container td:nth-child(3), 
 .table-payment-container th:nth-child(4), .table-payment-container td:nth-child(4) { 
     white-space: wrap; 
@@ -158,16 +169,96 @@
     overflow: visible;
 }
 
+.table-worksession-container table {
+    width: 700px !important;
+    margin: 0 auto;
+    margin-top: 3rem;
+}
 
-.table-voucher-container {
-    padding-bottom: 2.5rem;
+.table-container.table-manageClients-container {
+    min-width: 375px;
+    max-width: 600px;
+
+    max-height: 600px;
+
+    margin: 0 auto;
+
+    justify-content: flex-start;
+}
+
+.table-manageClients-container th:nth-child(1), .table-manageClients-container td:nth-child(1) {
+    width: 10%;
+}
+.table-manageClients-container th:nth-child(2),.table-manageClients-container td:nth-child(2) {
+    width: 35%;
+}
+.table-manageClients-container th:nth-child(3),.table-manageClients-container td:nth-child(3) {
+    width: 35%;
+}
+.table-manageClients-container th:nth-child(4),.table-manageClients-container td:nth-child(4) {
+    width: 20%;
+    min-width: 50px;
+    overflow: visible;
+}
+
+.table-container.table-history-container {
+    padding: 0rem;
+    margin: 0;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.table-container.table-history-container table {
+    padding: 0;
+    max-width: 1000px;
+}
+
+.table-container.table-history-container th:nth-child(2),.table-container.table-history-container td:nth-child(2) {
+    width: 5ch;
+}
+
+.table-container-footer {
+    padding: 2.5rem;
+}
+
+.table-container.table-config-params,
+.table-container.table-config-payment-container {
+    padding: 0rem;
+    margin: 0;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.table-container.table-config-params table,
+.table-container.table-config-payment-container table {
+    padding: 0;
+    max-width: 500px;
+}
+
+.table-container.table-config-params th:nth-child(1),.table-container.table-config-params td:nth-child(1) {
+    width: 15ch;
+}
+
+.table-container.table-config-params th:nth-child(2),.table-container.table-config-params td:nth-child(2) {
+    width: 5ch;
+}
+
+.table-container.table-config-params th:nth-child(3),.table-container.table-config-params td:nth-child(3) {
+    width: 5ch;
+}
+
+.table-container.table-config-payment-container th:nth-child(1),.table-container.table-config-payment-container td:nth-child(1) {
+    width: 15ch;
+}
+
+.table-container.table-config-payment-container th:nth-child(2),.table-container.table-config-payment-container td:nth-child(2) {
+    width: 10ch;
 }
 
 @media (640px > width) {
     .table-container {
         padding: 0rem 1rem;
         margin: 0rem 0rem 5rem;
-        overflow-x: auto;
     }      
 
     .table-container table {
@@ -189,5 +280,81 @@
         max-width: 150px;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .table-container.table-manageemployees-container {
+        min-width: 375px;
+        max-width: 700px;
+
+        overflow-x: scroll;
+    
+        margin: 0 auto;
+    
+        justify-content: center;
+    }
+    .table-container.table-manageemployees-container table {
+        min-width: 600px;
+        max-width: 600px;
+    }
+
+    .table-manageemployees-container th:nth-child(1), .table-manageemployees-container td:nth-child(1) {
+        width: 5%;
+    }
+    .table-manageemployees-container th:nth-child(2), .table-manageemployees-container td:nth-child(2) {
+        width: 15%;
+    }
+    .table-manageemployees-container th:nth-child(3), .table-manageemployees-container td:nth-child(3) {
+        width: 15%;
+    }
+    .table-manageemployees-container th:nth-child(4), .table-manageemployees-container td:nth-child(4) {
+        width: 15%;
+    }
+    .table-manageemployees-container th:nth-child(5), .table-manageemployees-container td:nth-child(5) {
+        width: 5%;
+    }
+
+    .table-voucher-container {
+        margin-bottom: 2.5rem;
+    }
+
+    .table-container.table-manageClients-container {
+        max-width: 500px;
+    }
+
+    .table-container.table-manageClients-container table {
+        min-width: 500px;
+        max-width: 500px;
+    }
+    
+    .table-manageClients-container th:nth-child(1), .table-manageClients-container td:nth-child(1) {
+        width: 5%;
+    }
+    .table-manageClients-container th:nth-child(2),.table-manageClients-container td:nth-child(2) {
+        width: 35%;
+    }
+    .table-manageClients-container th:nth-child(3),.table-manageClients-container td:nth-child(3) {
+        width: 35%;
+    }
+    .table-manageClients-container th:nth-child(4),.table-manageClients-container td:nth-child(4) {
+        width: 25%;
+    }
+    
+    .table-container.table-config-params {
+        overflow-x: scroll;
+
+        margin: 0 auto;
+
+        justify-content: flex-start;
+    }
+    .table-container.table-config-params table {
+        min-width: 500px;
+        max-width: 500px;
+    }
+}
+
+@media (1500px > width) {
+    .table-container {
+        max-width: 1000px;
+        overflow-x: auto;
     }
 }

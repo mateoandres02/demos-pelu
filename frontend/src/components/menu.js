@@ -3,6 +3,18 @@ import { path1, path2, path3 } from './presentation.js';
 
 const menuAdmin = (user) => {
 
+    const isMobile = window.innerWidth <= 768;
+
+
+    const workSessionItem = !isMobile ? `
+        <li>
+            <a href="#registro-trabajo">
+                <img src="/assets/icons/work.svg" alt="Registrar sesion de trabajo" class="icon">
+                Registro de sesion de trabajo
+            </a>
+        </li>
+    ` : ''; 
+
     const menu = `
         <aside class="sidebar">
             <div class="sidebar-nav">
@@ -53,18 +65,18 @@ const menuAdmin = (user) => {
                         </a>
                     </li>
                     <li>
-                        <a href="#registro-trabajo">
-                            <img src="/assets/icons/work.svg" alt="Registrar sesion de trabajo" class="icon">
-                            Registro de sesion de trabajo
+                        <a href="#administrar-clientes">
+                            <img src="/assets/icons/edit-user.svg" alt="Administrar clientes" class="icon">
+                            Administrar clientes
                         </a>
                     </li>
-
+                    ${workSessionItem}
+                    <li class="button-logout-container">
+                        <button id="logout">
+                            Cerrar Sesion
+                        </button>
+                    </li>
                 </ul>
-                <div class="button-logout-container">
-                    <button id="logout">
-                        Cerrar Sesion
-                    </button>
-                </div>
             </nav>
         </aside>
     `;
@@ -95,12 +107,18 @@ const menuEmployee = (data) => {
                             Administrar Calendario
                         </a>
                     </li>
+                    <li>
+                        <a href="#historial-trabajo">
+                            <img src="/assets/icons/history-log.svg" alt="Historial de trabajo" class="icon">
+                            Historial de trabajo
+                        </a>
+                    </li>
+                    <li class="button-logout-container">
+                        <button id="logout">
+                            Cerrar Sesion
+                        </button>
+                    </li>
                 </ul>
-                <div class="button-logout-container">
-                    <button id="logout">
-                        Cerrar Sesion
-                    </button>
-                </div>
             </nav>
         </aside>
     `;

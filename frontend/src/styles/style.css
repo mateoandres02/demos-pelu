@@ -118,9 +118,6 @@ p {
 
     .containerFunctionalityView {
         margin-left: 0 !important;
+        padding-top: 5rem;
     }
-}
-
-@media (1080px > width) {
-
 }

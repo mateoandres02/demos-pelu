@@ -41,6 +41,9 @@ const modal = `
             <div class="modal-footer modal-footer-without-padding">
               <button type="submit" class="btn btn-success btnPost">Registrar</button>
               <button class="btn btn-danger btnCancel" data-bs-dismiss="modal">Cancelar</button>
+              <div class="loader-container">
+                <img src="/assets/tube-spinner.svg" alt="loading" class="loader">
+              </div>
             </div>
 
           </form>
@@ -98,6 +101,7 @@ const usersData = async () => {
             </tbody>
           </table>
         </div>
+        <div class="table-container-footer"></div>
       `;
 
         return tableEmployees;
@@ -109,6 +113,7 @@ const usersData = async () => {
     alert('Error al cargar los empleados.');
   };
 };
+
 
 export { 
   postEmployee, 

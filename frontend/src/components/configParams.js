@@ -1,6 +1,7 @@
 import { putChangePercentageService, getServices} from "./requests";
 
 import "../styles/configParams.css";
+import { sortArrayByName } from "../utils/arrays";
 
 
 const configParamsView = `<div class="configParamsView containerFunctionalityView"></div>`;
@@ -50,6 +51,9 @@ const modalServices = `
             <div class="modal-footer modal-footer-without-padding">
               <button type="submit" class="btn btn-success btnPost">Registrar</button>
               <button class="btn btn-danger btnCancel" data-bs-dismiss="modal">Cancelar</button>
+              <div class="loader-container">
+                <img src="/assets/tube-spinner.svg" alt="loading" class="loader">
+              </div>
             </div>
           </form>
         </div>
@@ -74,7 +78,7 @@ const configPaymentView = `
 `;
 
 const tablePaymentEdit = `
-  <div class="table-container table-payment-container table-config-payment-container">
+  <div class="table-container table-config-payment-container">
     <table>
       <thead>
         <tr>
@@ -86,6 +90,7 @@ const tablePaymentEdit = `
       </tbody>
     </table>
   </div>
+  <div class="table-container-footer"></div>
 `;
 
 
@@ -129,9 +134,11 @@ const serviceData = async () => {
   try {
     const data = await getServices();
 
+    sortArrayByName(data);
+
     if (data.length > 0) {
       let tableServices = `
-        <div class="table-container table-payment-container table-config-params">
+        <div class="table-container table-config-params">
           <table>
             <thead>
               <tr>

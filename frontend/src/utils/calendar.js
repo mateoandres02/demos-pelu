@@ -1,4 +1,5 @@
 import { modalGetTurn, modalTurnContent } from "../components/modalGetTurn";
+import { modalUpdateTurn } from "../components/modalUpdateTurn";
 import { modalPostTurn } from "../components/modalPostTurn";
 import { removeAllModals } from "./modal";
 
@@ -57,6 +58,7 @@ const dateSetStyles = () => {
 
 }
 
+
 const getInitialDate = (isMobile) => {
 
   /**
@@ -65,17 +67,14 @@ const getInitialDate = (isMobile) => {
    */
 
   const today = new Date();
+
   if (!isMobile) {
     const day = today.getDay();
-    const diff = day === 0 ? -6 : 1 - day;
+    const diff = day === 0 ? - 6 : 1 - day;
     today.setDate(today.getDate() + diff);
   }
 
-  /** ANTES ESTABA EN - 6 */
-
-  today.setHours(today.getHours() - 1);
-
-  console.log(today);
+  today.setHours(today.getHours() - 3); // Antes estaba en - 6
 
   return today.toISOString().split('T')[0];
 
@@ -83,11 +82,23 @@ const getInitialDate = (isMobile) => {
 
 
 function determinateRangeOfDays(currentDate, isMobile) {
+
+  /**
+   * Determina el rango de días para mostrar en el calendario.
+   * param: currentDate -> fecha actual.
+   * param: isMobile -> contiene la cantidad de pixeles para saber si estamos en un celular o en una computadora.
+   */
+
   const start = new Date(currentDate);
   const end = new Date(currentDate);
   start.setDate(start.getDate() - (isMobile ? 0 : start.getDay() - 1));
   end.setDate(start.getDate() + days - 1);
-  return { start, end };
+
+  return { 
+    start, 
+    end
+  };
+  
 }
 
 

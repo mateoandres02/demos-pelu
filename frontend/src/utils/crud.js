@@ -1,6 +1,7 @@
-import { getBarberById, getBarbers, getServiceById, getServices, getVoucherById, popService, popUser, popVoucher } from "../components/requests";
+import { getBarberById, getBarbers, getClientById, getClients, getServiceById, getServices, getVoucherById, popClient, popService, popUser, popVoucher } from "../components/requests";
 import { showModalConfirmDelete } from "./modal.js";
 import { modalConfirm } from '../components/modalDeleteTurn.js';
+
 
 const submitRecord = (form, modal, modalFooter, btnPostModal, section = null) => {
 
@@ -27,6 +28,9 @@ const submitRecord = (form, modal, modalFooter, btnPostModal, section = null) =>
     const mode = form.getAttribute('data-mode');
     const id = form.getAttribute('data-id');
 
+    const $loader = document.querySelector('.loader-container');
+    if ($loader) $loader.style.display = "flex";
+
     let nombre;
     let precio;
     let contrasena;
@@ -35,6 +39,7 @@ const submitRecord = (form, modal, modalFooter, btnPostModal, section = null) =>
     let idBarbero;
     let motivo;
     let monto;
+    let telefono;
 
     if (form.Nombre) nombre = form.Nombre.value;
     if (form.Precio) precio = form.Precio.value;
@@ -46,6 +51,7 @@ const submitRecord = (form, modal, modalFooter, btnPostModal, section = null) =>
     }
     if (form.Motivo) motivo = form.Motivo.value;
     if (form.Monto) monto = form.Monto.value;
+    if (form.Telefono) telefono = form.Telefono.value;
 
     if (mode === 'update') {
 
@@ -99,6 +105,32 @@ const submitRecord = (form, modal, modalFooter, btnPostModal, section = null) =>
 
       }
       
+    }
+
+    if (section == "manageClients") {
+      const allClients = await getClients();
+
+      let isDuplicate = false;
+
+      if (!allClients.message) {
+        allClients.forEach(client => {
+          if (client.Nombre === nombre && client.Id !== parseInt(id)) {
+            isDuplicate = true;
+          }
+          return;
+        });
+      }
+
+      if (isDuplicate) {
+        $loader.style.display = "none";
+        span.innerHTML = 'El cliente ya existe en la base de datos.';
+        span.style.color = 'red';
+        modalFooter.appendChild(span);
+        setTimeout(() => {
+          modalFooter.removeChild(span);
+        }, 2500);
+        return;
+      };
     }
 
     btnPostModal.setAttribute('disabled', 'true');
@@ -158,6 +190,22 @@ const submitRecord = (form, modal, modalFooter, btnPostModal, section = null) =>
       messageSpan = 'Barbero, motivo o monto inválido.';
     }
 
+    if (section == "manageClients") {
+      body = { "Nombre": nombre, "Telefono": telefono };
+
+      if (mode === 'update') {
+        url = `https://demos-pelu-lnw1.vercel.app/clients/${id}`;
+        // url = `http://localhost:3001/clients/${id}`;
+        method = 'PUT';
+      } else {
+        url = `https://demos-pelu-lnw1.vercel.app/clients`;
+        // url = 'http://localhost:3001/clients';
+        method = 'POST';
+      }
+
+      messageSpan = 'Nombre o telefono incorrecto.';
+    }
+
     fetch(url, {
       method: method,
       headers: {
@@ -168,6 +216,8 @@ const submitRecord = (form, modal, modalFooter, btnPostModal, section = null) =>
     })
     .then(response => response.json())
     .then(data => {
+
+      $loader.style.display = "none";
 
       if (data.error !== undefined || data.message !== undefined) {
         span.innerHTML = data.error || data.message || messageSpan || 'Error al crear o actualizar el registro.';
@@ -289,6 +339,12 @@ const updateRecord = (btnsPut, modal, $putFormModal, $titleModal, $btnPost, sect
         
       //   $titleModal.textContent = "Actualizar Vale";
       // }
+
+      if (section == "manageClients") {
+        data = await getClientById(key);
+
+        $titleModal.innerHTML = "Actualizar cliente";
+      }
       
       $btnPost.textContent = "Actualizar";
 
@@ -304,6 +360,7 @@ const updateRecord = (btnsPut, modal, $putFormModal, $titleModal, $btnPost, sect
       if ($putFormModal.Rol) $putFormModal.Rol.value = data.Rol;
       // if ($putFormModal.Motivo) $putFormModal.Motivo.value = data.Motivo;
       // if ($putFormModal.Monto) $putFormModal.Monto.value = data.CantidadDinero;
+      if ($putFormModal.Telefono) $putFormModal.Telefono.value = data.Telefono;
 
       modal.show();
 
@@ -334,6 +391,7 @@ const deleteRecord = (btnsDelete, section = null) => {
           if (section == "config") response = await popService(key);
           if (section == "manageEmployees") response = await popUser(key);
           // if (section == "voucher") response = await popVoucher(key);
+          if (section == "manageClients") response = await popClient(key);
 
           if (response.ok) {
             window.location.reload();
