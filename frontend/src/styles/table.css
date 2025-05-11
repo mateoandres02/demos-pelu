@@ -4,6 +4,7 @@
     min-height: 100px;
     max-height: 600px;
     overflow-y: auto;
+    overflow-x: auto;
     height: auto;
   
     margin: 0 auto 3rem;
@@ -165,7 +166,7 @@
 .table-payment-container th:nth-child(3), .table-payment-container td:nth-child(3), 
 .table-payment-container th:nth-child(4), .table-payment-container td:nth-child(4) { 
     white-space: wrap; 
-    max-width: 120px;
+    max-width: 150px;
     overflow: visible;
 }
 
@@ -212,9 +213,15 @@
     padding: 0;
     max-width: 1000px;
 }
-
-.table-container.table-history-container th:nth-child(2),.table-container.table-history-container td:nth-child(2) {
+.table-container.table-history-container th:nth-child(1), .table-container.table-history-container td:nth-child(1),
+.table-container.table-history-container th:nth-child(2), .table-container.table-history-container td:nth-child(2),
+.table-container.table-history-container th:nth-child(4), .table-container.table-history-container td:nth-child(4) {
     width: 5ch;
+
+    white-space: nowrap; 
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .table-container-footer {
@@ -352,8 +359,9 @@
     }
 }
 
-@media (1500px > width) {
+@media (375px > width) {
     .table-container {
+        min-width: 375px;
         max-width: 1000px;
         overflow-x: auto;
     }

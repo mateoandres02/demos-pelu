@@ -17,9 +17,9 @@ const modalElement = `
         </div>
         <div class="modal-body">
           <form id="eventForm">
-            <label for="name-barber-select" class="name-barber-select"><i class="bi bi-person-lines-fill"></i>Barbero</label>
+            <label for="name-barber-select" class="name-barber-select"><i class="bi bi-person-lines-fill"></i>Empleado</label>
             <select id="name-barber-select" class="input name-barber-select" required>
-              <option value="null">Seleccionar barbero</option>
+              <option value="null">Seleccionar empleado</option>
             </select>
 
             <label for="input-name"><i class="bi bi-person-lines-fill"></i>Nombre</label>
@@ -178,46 +178,18 @@ const activateSectionCheckboxes = ($inputRegularCostumer, $checkboxesDays, check
   })
 }
 
-function modalPostTurn(info, data) {
 
-  /**
-   * Modal que contiene el formulario para hacer el post.
-   * param: info -> info de la celda seleccionada. info proporcionada por fullcalendar.
-   * param: data -> info del usuario logueado/activo.
-   */
-
-  const d = document;
-  const $modal = new bootstrap.Modal(d.getElementById('dateClickModal'));
-  const $inputEventDate = d.getElementById("eventDate");
-  const $inputEventTime = d.getElementById("event-datetime");
-  const $inputRegularCostumer = document.getElementById("regular-customer");
-  const $selectableBarbers = d.getElementById("name-barber-select");
-  const $elementSelectableBarbers = d.querySelectorAll('.name-barber-select');
-
-  // Autocomplete de la ia
-  const $inputName = d.getElementById('input-name');
-  const $inputNumber = d.getElementById('input-number');
-
-  // Add autocomplete container after name input
-  const autocompleteContainer = document.createElement('div');
-  autocompleteContainer.className = 'autocomplete-container';
-  if (data.user.Id != 1) {
-    autocompleteContainer.style.cssText = 'position: absolute; top: 16%; max-height: 200px; overflow-y: auto; width: 100%; background: white; border: 1px solid #ddd; border-radius: 4px; display: none; z-index: 1000; color: black';
-  } else {
-    autocompleteContainer.style.cssText = 'position: absolute; top: 30%; max-height: 200px; overflow-y: auto; width: 100%; background: white; border: 1px solid #ddd; border-radius: 4px; display: none; z-index: 1000; color: black';
-  }
-  $inputName.parentNode.style.position = 'relative';
-  $inputName.parentNode.appendChild(autocompleteContainer);
-
-  // Add input event listener for autocomplete
+const autocompleteClient = async (clients, $inputName, $inputNumber, autocompleteContainer) => {
   $inputName.addEventListener('input', async (e) => {
     const inputValue = e.target.value.toLowerCase();
+
     if (inputValue.length < 2) {
       autocompleteContainer.style.display = 'none';
       return;
     }
 
-    const clients = await getClients();
+    if (clients.message) return; 
+
     const matches = clients.filter(client => 
       client.Nombre.toLowerCase().includes(inputValue)
     );
@@ -249,13 +221,45 @@ function modalPostTurn(info, data) {
     }
   });
 
-  // Close autocomplete when clicking outside
   document.addEventListener('click', (e) => {
     if (!autocompleteContainer.contains(e.target) && e.target !== $inputName) {
       autocompleteContainer.style.display = 'none';
     }
   });
-  // Hasta aca el autocomplete de la ia. cualquier cosa borrar todo esto.
+}
+
+
+async function modalPostTurn(info, data, clients) {
+
+  /**
+   * Modal que contiene el formulario para hacer el post.
+   * param: info -> info de la celda seleccionada. info proporcionada por fullcalendar.
+   * param: data -> info del usuario logueado/activo.
+   */
+
+  const d = document;
+  const $modal = new bootstrap.Modal(d.getElementById('dateClickModal'));
+  const $inputEventDate = d.getElementById("eventDate");
+  const $inputEventTime = d.getElementById("event-datetime");
+  const $inputRegularCostumer = document.getElementById("regular-customer");
+  const $selectableBarbers = d.getElementById("name-barber-select");
+  const $elementSelectableBarbers = d.querySelectorAll('.name-barber-select');
+
+  // Autocomplete de la ia
+  const $inputName = d.getElementById('input-name');
+  const $inputNumber = d.getElementById('input-number');
+
+  const autocompleteContainer = document.createElement('div');
+  autocompleteContainer.className = 'autocomplete-container';
+  if (data.user.Id != 1) {
+    autocompleteContainer.style.cssText = 'position: absolute; top: 16%; max-height: 200px; overflow-y: auto; width: 100%; background: white; border: 1px solid #ddd; border-radius: 4px; display: none; z-index: 1000; color: black';
+  } else {
+    autocompleteContainer.style.cssText = 'position: absolute; top: 30%; max-height: 200px; overflow-y: auto; width: 100%; background: white; border: 1px solid #ddd; border-radius: 4px; display: none; z-index: 1000; color: black';
+  }
+  $inputName.parentNode.style.position = 'relative';
+  $inputName.parentNode.appendChild(autocompleteContainer);
+
+  autocompleteClient(clients, $inputName, $inputNumber, autocompleteContainer)
 
   if (data.user.Id != 1) {
     $elementSelectableBarbers.forEach((element) => {
@@ -413,7 +417,7 @@ async function handleSubmit(form, date, dataUserActive, $modal, checksActivated,
     
     if (idBarber === null) {
       
-      span.innerHTML = 'Seleccione un barbero';
+      span.innerHTML = 'Seleccione un empleado.';
       span.style.color = 'red';
       
       setTimeout(() => {
@@ -446,7 +450,7 @@ async function handleSubmit(form, date, dataUserActive, $modal, checksActivated,
 
       if ((recurrentTurn.length > 0 && recurrentTurn[0].exdate === 0) || turn.length > 0) {
 
-        span.innerHTML = 'Ya existe un turno en esa fecha. Consultar al barbero.';
+        span.innerHTML = 'Ya existe un turno en esa fecha. Consultar al empleado.';
         span.style.color = 'red';
 
         setTimeout(() => {
@@ -585,5 +589,6 @@ async function handleSubmit(form, date, dataUserActive, $modal, checksActivated,
 export {
   modalPostTurn,
   actionBtnCancel,
-  modalElement
+  modalElement,
+  autocompleteClient
 }

@@ -91,7 +91,7 @@ const actionBtnWsp = (name, day, startTime, tel, $btnWsp) => {
   
 }
 
-const actionBtnEdit = ($btnEdit, $modalGetTurn, info, data) => {
+const actionBtnEdit = ($btnEdit, $modalGetTurn, info, data, clients) => {
   let body = document.body;
   $btnEdit.addEventListener("click", async(e) => {
     e.preventDefault();
@@ -116,9 +116,9 @@ const actionBtnEdit = ($btnEdit, $modalGetTurn, info, data) => {
     const $formPutTurn = document.getElementById("formPutTurn");
     cancelPostModal($btnCancelPutTurn, $formPutTurn, $modalUpdateTurn)
 
-    updateTurn($formPutTurn, $modalUpdateTurn, $selectableBarbers, info, data); 
+    updateTurn($formPutTurn, $modalUpdateTurn, $selectableBarbers, info, data, clients); 
 
-    $selectableBarbers.innerHTML = `<option value="null">Seleccionar barbero</option>`;
+    $selectableBarbers.innerHTML = `<option value="null">Seleccionar empleado</option>`;
 
     // Close current modal
     const modales = document.querySelectorAll('.modal');
@@ -126,7 +126,7 @@ const actionBtnEdit = ($btnEdit, $modalGetTurn, info, data) => {
   });
 }
 
-function modalGetTurn(info, data) {
+function modalGetTurn(info, data, clients) {
   
   /**
    * Obtenemos la información del turno y la mostramos en una modal.
@@ -182,7 +182,7 @@ function modalGetTurn(info, data) {
   
   actionBtnWsp(name, day, startTime, tel, $btnWsp);
 
-  actionBtnEdit($btnEdit, $modal, info, data);
+  actionBtnEdit($btnEdit, $modal, info, data, clients);
 
 }
 

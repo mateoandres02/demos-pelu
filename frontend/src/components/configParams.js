@@ -87,6 +87,7 @@ const tablePaymentEdit = `
         </tr>
       </thead>
       <tbody class="table-config-pay-body">
+        <td colspan="2">Sin datos</td>
       </tbody>
     </table>
   </div>
@@ -303,7 +304,7 @@ const paymentData = async (table, dataBarber) => {
     handleModifyPercentage(links)
 
   } catch (error) {
-    alert('Error al obtener los barberos para poder configurar sus porcentajes de pago.');
+    alert('Error al obtener los empleados para poder configurar sus porcentajes de pago.');
   };
 
 }

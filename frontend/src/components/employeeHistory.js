@@ -10,7 +10,7 @@ const containerEmployeeHistory = `<div class="containerEmployeeHistory container
 const infoSectionEmployeeHistory = `
   <div class="present-container">
     <h2>Historial de trabajo</h2>
-    <p>Visualiza un historial acerca de tu trabajo realizado en la barbería.</p>
+    <p>Visualiza un historial acerca de tu trabajo realizado en la peluquería.</p>
     <div class="present-container-filters">
       <div class="present-container-filter">
         <span>Fecha Inicio</span>

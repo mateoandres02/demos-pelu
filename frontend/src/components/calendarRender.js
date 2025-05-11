@@ -11,7 +11,7 @@ const d = document;
 
 const calendario = `<div class="calendar-container" id="calendar"></div>`;
 
-async function calendarRender (modalElement, data) {
+async function calendarRender (modalElement, data, clients) {
 
   /**
    * Renderiza el calendario.
@@ -69,10 +69,10 @@ async function calendarRender (modalElement, data) {
       };
     },
     eventClick: function(info) {
-      eventInfo(info, data)
+      eventInfo(info, data, clients)
     },
     dateClick: function(info) {
-      dateInfo(info, data, modalElement)
+      dateInfo(info, data, modalElement, clients)
     },
     locale: esLocale,
     eventOverlap: false,

@@ -187,7 +187,7 @@ const submitRecord = (form, modal, modalFooter, btnPostModal, section = null) =>
         method = 'POST';
       }
 
-      messageSpan = 'Barbero, motivo o monto inválido.';
+      messageSpan = 'Empleado, motivo o monto inválido.';
     }
 
     if (section == "manageClients") {

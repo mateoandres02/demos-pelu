@@ -9,7 +9,7 @@ function parseDate(date) {
   const [year, month, day] = datePart.split('-');
   const [hour, minute, seconds] = timePart.split(":");
 
-  const dayWithoutYear = `${month}-${day}`;
+  const dayWithoutYear = `${day}/${month}`;
   const dateWithoutTime = `${day}/${month}/${year}`;
   const dateWithoutTimeWithDash = `${day}-${month}-${year}`;
   const timeWithoutSeconds = `${hour}:${minute}`;

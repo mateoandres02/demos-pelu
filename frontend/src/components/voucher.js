@@ -35,7 +35,7 @@ const voucherAddView = `
         <input type="date" id="filterDateInput" value="${today}">
       </div>
       <div class="present-container-filter voucherBarberFilter">
-        <span>Filtrar por barbero</span>
+        <span>Filtrar por empleado</span>
         <select id="barberSelect" class="form-select">
           <option value="null">Seleccionar...</option>
         </select>
@@ -50,7 +50,7 @@ const tableVouchersColumns = `
       <thead>
         <tr>
           <th scope="col">FECHA CREACION</th>
-          <th scope="col">BARBERO</th>
+          <th scope="col">EMPLEADO</th>
           <th scope="col">MOTIVO</th>
           <th scope="col">MONTO</th>
           <th scope="col">ACCION</th>
@@ -76,9 +76,9 @@ const modalVoucher = `
         <div class="modal-body">
 
           <form id="formPOSTVoucher">
-            <label for="select-barber-voucher">Barbero</label>
+            <label for="select-barber-voucher">Empleado</label>
             <select id="select-barber-voucher" name="Barbero" class="input" required>
-              <option value="" disabled selected>Seleccionar Barbero</option>
+              <option value="" disabled selected>Seleccionar empleado</option>
             </select>
             
             <label for="reason-voucher">Motivo</label>

@@ -27,7 +27,7 @@ const containerCashView = `<div class="containerCashView containerFunctionalityV
 const infoSectionCashView = `
   <div class="present-container">
     <h2>Seguimiento de Caja</h2>
-    <p>Visualiza los cobros realizados y los pagos por realizar.</p>
+    <p>Lleva un seguimiento de los cobros realizados por los servicios prestados.</p>
     <div class="present-container-filters">
       <div class="present-container-filter">
         <span>Fecha Inicio</span>
@@ -38,7 +38,7 @@ const infoSectionCashView = `
         <input type="date" id="filterWeekInput">
       </div>
       <div class="present-container-filter">
-        <span>Filtrar por barbero</span>
+        <span>Filtrar por empleado</span>
         <select id="barberSelect" class="form-select">
           <option value="null">Todos</option>
         </select>
@@ -67,7 +67,7 @@ const tableTurns = `
           <th scope="col">HORA</th>
           <th scope="col">CLIENTE</th>
           <th scope="col">FIJO</th>
-          <th scope="col">BARBERO</th>
+          <th scope="col">EMPLEADO</th>
           <th scope="col">TIPO DE SERVICIO</th>
           <th scope="col">SERVICIO</th>
           <th scope="col">COSTO</th>
@@ -96,14 +96,17 @@ const paymentSection = `
     <table>
       <thead>
         <tr>
-          <th scope="col">BARBERO</th>
+          <th scope="col">EMPLEADO</th>
           <th scope="col">TOTAL GANADO</th>
-          <th scope="col">DIFERENCIA POR VALES</th>
+          <th scope="col">TOTAL RETIRADO</th>
           <th scope="col">TOTAL A PAGAR</th>
           <th scope="col">DEBE</th>
         </tr>
       </thead>
       <tbody class="table-pay-body">
+        <tr>
+          <td colspan="5">Sin datos.</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -494,7 +497,7 @@ const fillTheObjectWithFilteredTurns = async (barbersData, filteredTurns, dateIn
         dataVales.forEach((item) => {
           const { datePart } = parseDate(item.FechaCreacion);
   
-          if ((datePart >= dateInput && datePart <= weekInput)) {
+          if ((datePart >= dateInput && datePart <= weekInput) || (datePart == dateInput)) {
             barbersData[barber].vales += item.CantidadDinero;
           }
           
@@ -597,7 +600,7 @@ const getPaidForBarbers = async (dateInput, weekInput) => {
    */
 
   // Filtramos los turnos que tienen servicio
-  const filteredTurns = globalDataFinalTurns.filter(turn => turn.turns.Service);
+  const filteredTurns = globalDataFinalTurns.filter(turn => turn.servicio && turn.forma_pago);
 
   let barbersData = {};
 
@@ -634,7 +637,6 @@ const handlePaidsForBarber = ($payButton, $dateInput, $weekInput) => {
    * Maneja el pago para los barberos.
    * param: $payButton -> elemento html del boton de pago.
    */
-
   
   $payButton.addEventListener('click', () => {
     getPaidForBarbers($dateInput.value, $weekInput.value);

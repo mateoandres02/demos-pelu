@@ -21,6 +21,7 @@ import { submitRecord, deleteRecord, updateRecord } from '../utils/crud.js';
 
 import "../styles/style.css";
 import { clientsData, manageClientsView, modalPostClient, postClient } from './manageClients.js';
+import { getClients } from './requests.js';
 
 // import { setDeviceId, deviceIdStr } from './securityValidator.js'
 
@@ -44,12 +45,14 @@ const indexView = async (data) => {
 
     app.innerHTML += loader;
 
+    const clients = await getClients();
+
     try {
         switch (urlActive) {
             case '#calendario':
     
                 app.innerHTML += calendario;
-                calendarRender(modalElement, data);
+                calendarRender(modalElement, data, clients);
     
                 break;
             

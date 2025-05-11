@@ -1,4 +1,5 @@
 import { parseDate } from "../utils/date";
+import { autocompleteClient } from "./modalPostTurn";
 import { getClients, getTurnByDateAndBarber } from "./requests";
 
 const modalUpdateTurn = `
@@ -13,9 +14,9 @@ const modalUpdateTurn = `
         </div>
         <div class="modal-body">
           <form id="formPutTurn">
-            <label for="name-barber-select" class="name-barber-select"><i class="bi bi-person-lines-fill"></i>Barbero</label>
+            <label for="name-barber-select" class="name-barber-select"><i class="bi bi-person-lines-fill"></i>Empleado</label>
             <select id="name-barber-select" class="input name-barber-select" required>
-              <option value="null">Seleccionar barbero</option>
+              <option value="null">Seleccionar empleado</option>
             </select>
 
             <label for="input-name"><i class="bi bi-person-lines-fill"></i>Nombre</label>
@@ -38,7 +39,7 @@ const modalUpdateTurn = `
   </div>
 `;
 
-const updateTurn = (form, modal, $selectableBarbers, info, data) => {
+const updateTurn = (form, modal, $selectableBarbers, info, data, clients) => {
 
   const $modalFooter = document.querySelector('.modal-footer.modal-footer-update-turn');
   const $loader = document.querySelector('.loader-container');
@@ -59,11 +60,9 @@ const updateTurn = (form, modal, $selectableBarbers, info, data) => {
     })
   }
 
-  // Autocomplete de la ia
   const $inputName = document.getElementById('input-name');
   const $inputNumber = document.getElementById('input-number');
 
-  // Add autocomplete container after name input
   const autocompleteContainer = document.createElement('div');
   autocompleteContainer.className = 'autocomplete-container';
   if (data.user.Id != 1) {
@@ -74,53 +73,7 @@ const updateTurn = (form, modal, $selectableBarbers, info, data) => {
   $inputName.parentNode.style.position = 'relative';
   $inputName.parentNode.appendChild(autocompleteContainer);
 
-  // Add input event listener for autocomplete
-  $inputName.addEventListener('input', async (e) => {
-    const inputValue = e.target.value.toLowerCase();
-    if (inputValue.length < 2) {
-      autocompleteContainer.style.display = 'none';
-      return;
-    }
-
-    const clients = await getClients();
-    const matches = clients.filter(client => 
-      client.Nombre.toLowerCase().includes(inputValue)
-    );
-
-    if (matches.length > 0) {
-      autocompleteContainer.style.display = 'block';
-      autocompleteContainer.innerHTML = matches
-        .map(client => `<div class="autocomplete-item" style="padding: 8px; cursor: pointer; hover: background-color: #f0f0f0;">${client.Nombre}</div>`)
-        .join('');
-
-      // Add click handlers for autocomplete items
-      autocompleteContainer.querySelectorAll('.autocomplete-item').forEach((item, index) => {
-        item.addEventListener('click', () => {
-          $inputName.value = matches[index].Nombre;
-          $inputNumber.value = matches[index].Telefono;
-          autocompleteContainer.style.display = 'none';
-        });
-
-        item.addEventListener('mouseover', () => {
-          item.style.backgroundColor = '#f0f0f0';
-        });
-
-        item.addEventListener('mouseout', () => {
-          item.style.backgroundColor = 'white';
-        });
-      });
-    } else {
-      autocompleteContainer.style.display = 'none';
-    }
-  });
-
-  // Close autocomplete when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!autocompleteContainer.contains(e.target) && e.target !== $inputName) {
-      autocompleteContainer.style.display = 'none';
-    }
-  });
-  // Hasta aca el autocomplete de la ia. cualquier cosa borrar todo esto.
+  autocompleteClient(clients, $inputName, $inputNumber, autocompleteContainer)
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -140,7 +93,7 @@ const updateTurn = (form, modal, $selectableBarbers, info, data) => {
     }
 
     if (idBarber === null) {
-      span.innerHTML = 'Seleccione un barbero';
+      span.innerHTML = 'Seleccione un empleado.';
       span.style.color = 'red';
       
       setTimeout(() => {
@@ -163,7 +116,7 @@ const updateTurn = (form, modal, $selectableBarbers, info, data) => {
       const { recurrentTurn, turn } = await getTurnByDateAndBarber(completeDate, idBarber);
 
       if (recurrentTurn.length > 0 || turn.length > 0) {
-        span.innerHTML = 'Ya existe un turno en esa fecha. Consultar al barbero.';
+        span.innerHTML = 'Ya existe un turno en esa fecha. Consultar al empleado.';
         span.style.color = 'red';
 
         setTimeout(() => {
@@ -202,7 +155,7 @@ const updateTurn = (form, modal, $selectableBarbers, info, data) => {
 
     if (response.ok) {
       span.innerHTML = 'Turno actualizado correctamente.';
-      span.style.color = 'green';
+      span.style.color = '#5cb85c';
       
       setTimeout(() => {
         $loader.style.display = "none";

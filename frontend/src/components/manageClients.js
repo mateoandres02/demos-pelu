@@ -58,7 +58,7 @@ const rows = (data) => {
     if (index > -1) {
       row += `
         <tr key=${client.Id}>
-          <td scope="row">${client.Id}</td>
+          <td scope="row">${index + 1}</td>
           <td>${client.Nombre}</td>
           <td>${client.Telefono}</td>
           <td class="btns-actions">
@@ -89,7 +89,7 @@ const clientsData = async () => {
           <table>
             <thead>
               <tr>
-                <th scope="col">ID</th>
+                <th scope="col">N°</th>
                 <th scope="col">NOMBRE</th>
                 <th scope="col">TELÉFONO</th>
                 <th scope="col" class="container-btns-actions">ACCIONES</th>

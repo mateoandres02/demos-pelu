@@ -18,7 +18,7 @@ const infoSectionHistoryTurnsView = `
         <input type="date" id="filterDateInputHistory" class="filter-date-cash-tracking" value="${today}">
       </div>
       <div class="present-container-filter filterBarber">
-        <span>Filtrar por barbero</span>
+        <span>Filtrar por empleado</span>
         <select id="barberSelectHistory" class="form-select">
           <option value="null">Todos</option>
         </select>
@@ -36,7 +36,7 @@ const tableTurnsHistory = `
           <th scope="col">HORARIO CREACION</th>
           <th scope="col">FECHA TURNO</th>
           <th scope="col">HORA TURNO</th>
-          <th scope="col">BARBERO</th>
+          <th scope="col">EMPLEADO</th>
           <th scope="col">CLIENTE</th>
           <th scope="col">FIJO</th>
           <th scope="col">ACCION</th>

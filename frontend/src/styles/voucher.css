@@ -1,6 +1,8 @@
 .voucher-container {
-  max-width: 900px;
+  min-width: 375px;
+  max-width: 1000px;
   margin-bottom: 1rem;
+
 }
 
 .voucher-present h3 {

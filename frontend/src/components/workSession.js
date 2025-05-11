@@ -17,9 +17,9 @@ const containerWorkSessionsView = `<div class="containerHistoryView containerWor
 const infoSectionWorkSessionsView = `
 <div class="present-container infoSectionHistoryTurnsView">
   <h2>Historial de sesiones de trabajo</h2>
-  <p>Visualiza un historial respecto a los dias y horas de trabajo hecho en la administración</p>
-  <div class="present-container-filters cashRegisterFilterContainer">
-    <div class="present-container-filter cashRegisterFilter">
+  <p>Marca la presencia de tu horario laboral.</p>
+  <div class="present-container-filters work-session-filters">
+    <div class="present-container-filter work-session-filter">
       <span>Filtrar por fecha</span>
       <input type="date" id="filterDateInputWorkSession" class="filter-date-cash-tracking" value="${today}"></input>
       <div class="buttons-container">
@@ -138,109 +138,109 @@ let intervalo;
 let tiempoInicio = localStorage.getItem("tiempoInicio") ? parseInt(localStorage.getItem("tiempoInicio")) : null;
 
 const actualizarCronometro = () => {
-    if (tiempoInicio) {
-        const tiempoActual = Date.now();
-        const diferencia = tiempoActual - tiempoInicio;
+  if (tiempoInicio) {
+    const tiempoActual = Date.now();
+    const diferencia = tiempoActual - tiempoInicio;
 
-        const horas = Math.floor(diferencia / 3600000);
-        const minutos = Math.floor((diferencia % 3600000) / 60000);
-        const segundos = Math.floor((diferencia % 60000) / 1000);
+    const horas = Math.floor(diferencia / 3600000);
+    const minutos = Math.floor((diferencia % 3600000) / 60000);
+    const segundos = Math.floor((diferencia % 60000) / 1000);
 
-        const cronometro = document.getElementById("cronometro");
-        if (cronometro) {
-            cronometro.textContent =
-                (horas < 10 ? "0" : "") + horas + ":" +
-                (minutos < 10 ? "0" : "") + minutos + ":" +
-                (segundos < 10 ? "0" : "") + segundos;
-        }
+    const cronometro = document.getElementById("cronometro");
+    if (cronometro) {
+      cronometro.textContent =
+        (horas < 10 ? "0" : "") + horas + ":" +
+        (minutos < 10 ? "0" : "") + minutos + ":" +
+        (segundos < 10 ? "0" : "") + segundos;
     }
+  }
 };
 
 //INICIAR CRONÓMETRO
 const handleStartButton = (button) => {
-    button.addEventListener("click", () => {
-        if (!tiempoInicio) {
-            tiempoInicio = Date.now();
-            localStorage.setItem("tiempoInicio", tiempoInicio);
+  button.addEventListener("click", () => {
+    if (!tiempoInicio) {
+      tiempoInicio = Date.now();
+      localStorage.setItem("tiempoInicio", tiempoInicio);
 
-            // Capturar fecha (YYYY-MM-DD)
-            // const fechaInicio = new Date().toISOString().split("T")[0];
-            const fechaInicio = new Date().toLocaleDateString('en-CA'); // formato YYYY-MM-DD
-            console.log("VIENDO FECHA INICIO", fechaInicio)
+      // Capturar fecha (YYYY-MM-DD)
+      // const fechaInicio = new Date().toISOString().split("T")[0];
+      const fechaInicio = new Date().toLocaleDateString('en-CA'); // formato YYYY-MM-DD
+      console.log("VIENDO FECHA INICIO", fechaInicio)
 
-            // Capturar hora exacta (HH:MM:SS)
-            const horarioInicio = new Date().toLocaleTimeString("es-AR", {
-                hour12: false, // 24 horas
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit"
-            });
+      // Capturar hora exacta (HH:MM:SS)
+      const horarioInicio = new Date().toLocaleTimeString("es-AR", {
+        hour12: false, // 24 horas
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
 
-            // console.log(`Fecha de inicio: ${fechaInicio}`);
-            // console.log(`Horario de inicio: ${horarioInicio}`);
+      // console.log(`Fecha de inicio: ${fechaInicio}`);
+      // console.log(`Horario de inicio: ${horarioInicio}`);
 
-            // Guardar en localStorage si quieres persistirlo
-            localStorage.setItem("fechaInicio", fechaInicio);
-            localStorage.setItem("horarioInicio", horarioInicio);
-            
-            postWorkSession(fechaInicio, horarioInicio);
-        }
+      // Guardar en localStorage si quieres persistirlo
+      localStorage.setItem("fechaInicio", fechaInicio);
+      localStorage.setItem("horarioInicio", horarioInicio);
+      
+      postWorkSession(fechaInicio, horarioInicio);
+    }
 
-        intervalo = setInterval(actualizarCronometro, 1000);
-        actualizarCronometro(); // Para mostrar el tiempo de inmediato sin esperar un segundo
-        // console.log("Cronómetro iniciado");
-    });
+    intervalo = setInterval(actualizarCronometro, 1000);
+    actualizarCronometro(); // Para mostrar el tiempo de inmediato sin esperar un segundo
+    // console.log("Cronómetro iniciado");
+  });
 };
 
 //DETENER CRONÓMETRO
 const handleEndButton = (button) => {
-    button.addEventListener("click", async () => {
-        if (tiempoInicio) {
-            const tiempoActual = Date.now();
-            const diferencia = tiempoActual - tiempoInicio;
+  button.addEventListener("click", async () => {
+    if (tiempoInicio) {
+      const tiempoActual = Date.now();
+      const diferencia = tiempoActual - tiempoInicio;
 
-            const horas = Math.floor(diferencia / 3600000);
-            const minutos = Math.floor((diferencia % 3600000) / 60000);
-            const segundos = Math.floor((diferencia % 60000) / 1000);
+      const horas = Math.floor(diferencia / 3600000);
+      const minutos = Math.floor((diferencia % 3600000) / 60000);
+      const segundos = Math.floor((diferencia % 60000) / 1000);
 
-            //capturar horario de finalizacion
-            const horarioFin = new Date().toLocaleTimeString("es-AR", {
-              hour12: false, // 24 horas
-              hour: "2-digit",
-              minute: "2-digit",
-              second: "2-digit"
-          });
+      //capturar horario de finalizacion
+      const horarioFin = new Date().toLocaleTimeString("es-AR", {
+        hour12: false, // 24 horas
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
 
-            // console.log(`Tiempo trabajado: ${horas}h ${minutos}m ${segundos}s`);
-            // console.log(`Horario de finalizacion de la sesion: ${horarioFin}`)
-            
-            // const cantHoras = `${horas}h ${minutos}m`
-            const cantHoras = `${horas}h ${minutos}m`
+      // console.log(`Tiempo trabajado: ${horas}h ${minutos}m ${segundos}s`);
+      // console.log(`Horario de finalizacion de la sesion: ${horarioFin}`)
+      
+      // const cantHoras = `${horas}h ${minutos}m`
+      const cantHoras = `${horas}h ${minutos}m`
 
-            //Detener cronómetro
-            clearInterval(intervalo);
-            localStorage.removeItem("tiempoInicio");
-            tiempoInicio = null;
+      //Detener cronómetro
+      clearInterval(intervalo);
+      localStorage.removeItem("tiempoInicio");
+      tiempoInicio = null;
 
-            //Reiniciar visualización de cronómetro
-            const cronometro = document.getElementById("cronometro");
-            if (cronometro) cronometro.textContent = "00:00:00";
+      //Reiniciar visualización de cronómetro
+      const cronometro = document.getElementById("cronometro");
+      if (cronometro) cronometro.textContent = "00:00:00";
 
-            //actualizar registro
-            await updateWorkSession(horarioFin, cantHoras);
+      //actualizar registro
+      await updateWorkSession(horarioFin, cantHoras);
 
-            //actualizar pagina para que se vea reflejado el cambio
-            window.location.reload();
-        }
-    });
+      //actualizar pagina para que se vea reflejado el cambio
+      window.location.reload();
+    }
+  });
 };
 
 // 📌 Verificar al cargar la página si hay un cronómetro activo
 document.addEventListener("DOMContentLoaded", () => {
-    if (tiempoInicio) {
-        actualizarCronometro();
-        intervalo = setInterval(actualizarCronometro, 1000);
-    }
+  if (tiempoInicio) {
+    actualizarCronometro();
+    intervalo = setInterval(actualizarCronometro, 1000);
+  }
 });
 
 export {

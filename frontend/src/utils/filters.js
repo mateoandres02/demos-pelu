@@ -28,7 +28,11 @@ const addBarberFilterListener = async (table, $dateInput, $weekInput, $barberSel
     totalEarnedEfectDisplay.innerHTML = `Efectivo: <b>$ 0.00</b>`;
     totalEarnedTransfDisplay.innerHTML = `Transferencia: <b>$ 0.00</b>`;
     totalVouchers.innerHTML = `Total vales a restar: <br class="totalEarnedInfo-br"> <b class="span-red">$ 0.00</b>`;
-    paymentTableBody.innerHTML = '';
+    paymentTableBody.innerHTML = `
+      <tr>
+        <td colspan="5">Sin datos.</td>
+      </tr>
+    `;
 
     const filteredBarber = dataBarbers.filter(barber => barber.Nombre === e.target.value);
     
@@ -46,8 +50,18 @@ const addBarberFilterListener = async (table, $dateInput, $weekInput, $barberSel
     }
 
     if (!filteredBarber.length > 0) {
+      table.innerHTML = `
+        <tr>
+          <td colspan="12">Cargando...</td>
+        </tr>
+      `;
       await cashData(table, selectedDate, null, endWeekDatePlusOne)
     } else {
+      table.innerHTML = `
+        <tr>
+          <td colspan="12">Cargando...</td>
+        </tr>
+      `;
       await cashData(table, selectedDate, filteredBarber[0].Id, endWeekDatePlusOne);
     }
 
@@ -85,7 +99,11 @@ const addDateFilterListener = async (table, dateInput, $weekInput, $barberSelect
       totalEarnedEfectDisplay.innerHTML = `Efectivo: <b>$ 0.00</b>`;
       totalEarnedTransfDisplay.innerHTML = `Transferencia: <b>$ 0.00</b>`;
       totalVouchers.innerHTML = `Total vales a restar: <br class="totalEarnedInfo-br"> <b class="span-red">$ 0.00</b>`
-      paymentTableBody.innerHTML = '';
+      paymentTableBody.innerHTML = `
+        <tr>
+          <td colspan="5">Sin datos.</td>
+        </tr>
+      `;
   
       let selectedDate = e.target.value;
       let endWeekDate = $weekInput.value;
@@ -93,6 +111,11 @@ const addDateFilterListener = async (table, dateInput, $weekInput, $barberSelect
       const filteredBarber = dataBarbers.filter(barber => barber.Nombre ===  $barberSelect.value);
       const selectedBarber = $barberSelect.value !== 'null' ? filteredBarber[0].Id : null;
   
+      table.innerHTML = `
+        <tr>
+          <td colspan="12">Cargando...</td>
+        </tr>
+      `;
       await cashData(table, selectedDate, selectedBarber, endWeekDate);
     }
     
@@ -129,7 +152,11 @@ const addEndWeekFilterListner = async (table, $dateInput, $weekInput, $barberSel
       totalEarnedEfectDisplay.innerHTML = `Efectivo: <b>$ 0.00</b>`;
       totalEarnedTransfDisplay.innerHTML = `Transferencia: <b>$ 0.00</b>`;
       totalVouchers.innerHTML = `Total vales a restar: <br class="totalEarnedInfo-br"> <b class="span-red">$ 0.00</b>`;
-      paymentTableBody.innerHTML = '';
+      paymentTableBody.innerHTML = `
+        <tr>
+          <td colspan="5">Sin datos.</td>
+        </tr>
+      `;
   
       let startWeekDate = $dateInput.value;
       let endWeekDate = e.target.value;
@@ -146,6 +173,11 @@ const addEndWeekFilterListner = async (table, $dateInput, $weekInput, $barberSel
       const filteredBarber = dataBarbers.filter(barber => barber.Nombre ===  $barberSelect.value);
       const selectedBarber = $barberSelect.value !== 'null' ? filteredBarber[0].Id : null;
   
+      table.innerHTML = `
+        <tr>
+          <td colspan="12">Cargando...</td>
+        </tr>
+      `;
       await cashData(table, startWeekDate, selectedBarber, endWeekDatePlusOne);
     }
 

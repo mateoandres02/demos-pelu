@@ -183,7 +183,7 @@ const handleSelectPaymentMethod = () => {
             $loader.style.display = "none";
   
             span.innerHTML = 'Se registró con éxito';
-            span.style.color = 'green';
+            span.style.color = '#5cb85c';
             $modalFooter.appendChild(span);
             
             setTimeout(() => {
@@ -278,7 +278,7 @@ const handleChangeBarber = async (table, selectable) => {
       if (dataBarber.message) {
         table.innerHTML = `
           <tr>
-            <td scope="row" colspan="2">El barbero no tiene servicios asociados.</td>
+            <td scope="row" colspan="2">El empleado no tiene servicios asociados.</td>
           </tr>
         `;
       } else {
