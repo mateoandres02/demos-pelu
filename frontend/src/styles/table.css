@@ -272,9 +272,17 @@
         min-width: 1000px
     }
 
+    .table-container.table-history-container {
+        padding: 1rem !important;
+    }
+
     .table-payment-container table {
         min-width: 600px;
         max-width: 600px;
+    }
+
+    .table-config-payment-container {
+        padding: 1rem !important;
     }
 
     .table-config-payment-container table {

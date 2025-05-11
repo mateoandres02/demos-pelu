@@ -190,6 +190,14 @@
     .totalEarnedInfo-br {
         display: block;
     }
+    .present-container-filter.cashRegisterFilter, .present-container-filter.filterBarber {
+        justify-content: space-evenly;
+        width: 100%;
+    }
+
+    .present-container-filter.filterBarber {
+        padding-top: 1rem;
+    }
     
 }
 

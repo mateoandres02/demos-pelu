@@ -10,19 +10,14 @@ const today = getToday();
 const voucherView = `<div class="voucherView containerFunctionalityView"></div>`;
 
 const infoSectionVoucherView = `
-  <div class="present-container">
-    <h2>Administración de vales y retiros de dinero</h2>
-    <p class="configParamsView-p">Registra los retiros de dinero por parte de tus empleados.</p>
+  <div class="present-container voucher-present">
+    <h2>Administración de retiros de dinero</h2>
+    <p>Agrega, modifica o elimina los distintos retiros de dinero.</p>
   </div>
 `;
 
 const voucherAddView = `
-  <hr>
   <div class="voucher-container present-container">
-    <div class="voucher-present">
-      <h3><img class="svg" src="/assets/icons/config.svg">Administración de vales</h3>
-      <p>Agrega, modifica o elimina los vales.</p>
-    </div>
     <div class="present-container-filters present-container-filters-voucher">
       <div class="present-container-filter voucherPost">
         <button type="button" class="postVoucher-btn">
