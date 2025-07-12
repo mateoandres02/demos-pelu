@@ -181,11 +181,11 @@ const rows = (dataTurns, dataRecurrentTurns, cutServices, endDateParam) => {
     if (index > -1) {
       let selectOptions = cutServices.map(service => `<option value="${service.Nombre}">${service.Nombre}</option>`).join('');
 
-      let serviceField = user.servicio ? `<span>${user.precio_unitario_servicio}</span>` : `<span class="span-red">Sin servicio</span>`;
+      let serviceField = user.servicio ? `<span>${user.servicio}</span>` : `<span class="span-red">Sin servicio</span>`;
 
       let paymentField = user.forma_pago ? `<span>${user.forma_pago}</span>` : `<span class="span-red">Sin pago</span>`;
 
-      let costField = user.precio ? user.precio : '0'; 
+      let costField = user.precio_unitario_servicio ? user.precio_unitario_servicio : '0'; 
 
       let date = user.turns.Date ? parseDate(user.turns.Date) : '';
       let dateRecurrentTurn = user.date ? parseDate(user.date) : '';
@@ -269,17 +269,18 @@ const calculateTotal = async (dataFinalsTurns, totalEarnedDisplay, totalEarnedEf
   });
 
   totalEarnedTurns = dataFinalsTurns.reduce((acc, turn) => {
+    console.log(turn);
     if (turn.forma_pago === "Efectivo") {
-      totalEarnedEfectTurns += (turn.precio || 0);
+      totalEarnedEfectTurns += (turn.precio_unitario_servicio || 0);
     };
     if (turn.forma_pago === "Transferencia") {
-      totalEarnedTransfTurns += (turn.precio || 0);
+      totalEarnedTransfTurns += (turn.precio_unitario_servicio || 0);
     }
     if (turn.forma_pago === "Mixto") {
       totalEarnedEfectTurns += (turn.pago_efectivo || 0);
       totalEarnedTransfTurns += (turn.pago_transferencia || 0);
     }
-    return acc + (turn.precio || 0);
+    return acc + (turn.precio_unitario_servicio || 0);
   }, 0);
   
   totalEarned = totalEarnedTurns;
@@ -474,7 +475,7 @@ const fillTheObjectWithFilteredTurns = async (barbersData, filteredTurns, dateIn
 
   for (const turn of filteredTurns) {
     const barber = turn.peluquero;
-    const price = turn.precio || 0;
+    const price = turn.precio_unitario_servicio || 0;
     const nameService = turn.servicio;
 
     if (!barbersData[barber]) {
@@ -525,12 +526,15 @@ const calculateEarnedForBarber = async (barbersData) => {
 
   for (const barber in barbersData) {
 
+    console.log(barber);
+
     const barberData = barbersData[barber];
     barberData.adjustedEarnings = {};
     barberData.totalAdjustedEarnings = 0;
     barberData.totalEarnings = 0;
 
     for (const service in barberData.services) {
+
       const totalForService = barberData.services[service];
       const percentage = barberData.percentages[service] || 50;
 

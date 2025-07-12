@@ -243,12 +243,14 @@ const handleSelectServiceChange = (cutServices, dateValue, endDateParam) => {
 
       if (turn_id_data.turns.Regular === "true") {
         const turn = {
-          servicio: selectedService.Id
+          servicio: selectedService.Id,
+          precio_unitario_servicio: selectedService.Precio
         };
         await putChangeServiceRecurrentTurns(rowId, dateParsed, turn);
       } else {
         const turn = {
-          Service: selectedService.Id
+          Service: selectedService.Id,
+          Precio_unitario_servicio: selectedService.Precio
         };
         await putChangeService(rowId, turn);
       }
