@@ -181,7 +181,7 @@ const rows = (dataTurns, dataRecurrentTurns, cutServices, endDateParam) => {
     if (index > -1) {
       let selectOptions = cutServices.map(service => `<option value="${service.Nombre}">${service.Nombre}</option>`).join('');
 
-      let serviceField = user.servicio ? `<span>${user.servicio}</span>` : `<span class="span-red">Sin servicio</span>`;
+      let serviceField = user.servicio ? `<span>${user.precio_unitario_servicio}</span>` : `<span class="span-red">Sin servicio</span>`;
 
       let paymentField = user.forma_pago ? `<span>${user.forma_pago}</span>` : `<span class="span-red">Sin pago</span>`;
 
@@ -193,6 +193,7 @@ const rows = (dataTurns, dataRecurrentTurns, cutServices, endDateParam) => {
       let isRecurrent = user.turns.Regular === "true" ? 'Si' : 'No';
 
       if (user.exdate != 1) {
+        console.log(user);
         row += `
           <tr key=${user.turns.Id}>
             <td scope="row">${dateRecurrentTurn.dayWithoutYearParsed || date.dateWithoutTime}</td>

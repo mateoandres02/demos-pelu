@@ -336,8 +336,8 @@ const deleteNormalCustomer = async (id, date) => {
    */
 
   let response = await fetch(`https://demos-pelu-lnw1.vercel.app/turns/${id}/${date}`, {
-   method: 'DELETE',
-   credentials: 'include' 
+    method: 'DELETE',
+    credentials: 'include' 
   });
   // let response = await fetch(`http://localhost:3001/turns/${id}/${date}`, {
   //   method: 'DELETE'  

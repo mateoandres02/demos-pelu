@@ -69,15 +69,20 @@ const getCutsForServices = async (dataUserActive, data, dateInput, weekInput) =>
       })        
     }
 
-    cutsData.vales = { cantidad_vales: 0, total_vales_por_date: 0 }
+    cutsData.vales = { cantidad_vales: 0, total_vales_por_date: 0, motivo: [], fecha: [], dinero_por_motivo: [] }
 
     if (!dataVales.message) {
       dataVales.forEach((item) => {
-        const { datePart } = parseDate(item.FechaCreacion);
+        console.log(item);
+
+        const { datePart, dayWithoutYear } = parseDate(item.FechaCreacion);
 
         if ((!weekInput && datePart == dateInput) || (datePart >= dateInput && datePart <= weekInput)) {
           cutsData.vales.total_vales_por_date += item.CantidadDinero;
           cutsData.vales.cantidad_vales += 1;
+          cutsData.vales.motivo.push(item.Motivo);
+          cutsData.vales.fecha.push(dayWithoutYear);
+          cutsData.vales.dinero_por_motivo.push(item.CantidadDinero);
         }
         
       });
@@ -128,11 +133,14 @@ const getCutsForServices = async (dataUserActive, data, dateInput, weekInput) =>
   });
 
   let messageForVales = '';
+  for (let i = 0; i < cutsData.vales.cantidad_vales; i++) {
+    messageForVales += `Fecha: <b>${cutsData.vales.fecha[i]}</b> - Motivo: <b>${cutsData.vales.motivo[i]}</b> - Dinero: <b>$ ${cutsData.vales.dinero_por_motivo[i]}</b>. <br><br>`;
+  }
   if (cutsData.vales.cantidad_vales === 1) {
-    messageForVales = `Retiraste <b>${cutsData.vales.cantidad_vales}</b> vale por la cantidad de <b>$ ${cutsData.vales.total_vales_por_date}</b>.`;
+    messageForVales += `Retiraste <b>${cutsData.vales.cantidad_vales}</b> vale por la cantidad de <b>$ ${cutsData.vales.total_vales_por_date}</b>.`;
   };
   if (cutsData.vales.cantidad_vales > 1) {
-    messageForVales = `Retiraste <b>${cutsData.vales.cantidad_vales}</b> vales por un total de <b>$ ${cutsData.vales.total_vales_por_date}</b>.`;
+    messageForVales += `Retiraste <b>${cutsData.vales.cantidad_vales}</b> vales por un total de <b>$ ${cutsData.vales.total_vales_por_date}</b>.`;
   };
   if (cutsData.vales.cantidad_vales === 0) {
     messageForVales = 'No realizaste vales.';

@@ -40,7 +40,8 @@ const getRecurrentTurnById = async (req, res) => {
                 servicio: turns_days.servicio,
                 precio: services.Precio,
                 pago_efectivo: turns_days.pago_efectivo,
-                pago_transferencia: turns_days.pago_transferencia
+                pago_transferencia: turns_days.pago_transferencia,
+                precio_unitario_servicio: turns_days.precio_unitario_servicio
             })
             .from(turns_days)
             .leftJoin(turns, eq(turns.Id, turns_days.id_turno))
@@ -80,7 +81,8 @@ const getAllRecurrentTurnsDaysByBarber = async (req, res) => {
                 precio: services.Precio,
                 forma_pago: method_payment.descripcion,
                 pago_efectivo: turns_days.pago_efectivo,
-                pago_transferencia: turns_days.pago_transferencia
+                pago_transferencia: turns_days.pago_transferencia,
+                precio_unitario_servicio: turns_days.precio_unitario_servicio
             })
             .from(turns_days)
             .leftJoin(turns, eq(turns.Id, turns_days.id_turno))
@@ -125,7 +127,8 @@ const getAllRecurrentTurnsDaysByDate = async (req, res) => {
             precio: services.Precio,
             forma_pago: method_payment.descripcion,
             pago_efectivo: turns_days.pago_efectivo,
-            pago_transferencia: turns_days.pago_transferencia
+            pago_transferencia: turns_days.pago_transferencia,
+            precio_unitario_servicio: turns_days.precio_unitario_servicio
         })
         .from(turns_days)
         .leftJoin(turns, eq(turns.Id, turns_days.id_turno))
@@ -167,7 +170,8 @@ const getAllRecurrentTurnsByDateAndBarber = async (req, res) => {
             precio: services.Precio,
             forma_pago: method_payment.descripcion,
             pago_efectivo: turns_days.pago_efectivo,
-            pago_transferencia: turns_days.pago_transferencia
+            pago_transferencia: turns_days.pago_transferencia,
+            precio_unitario_servicio: turns_days.precio_unitario_servicio
         })
         .from(turns_days)
         .leftJoin(turns, eq(turns.Id, turns_days.id_turno))
@@ -204,7 +208,8 @@ const getAllTurnsByWeek = async (req, res) => {
                 precio: services.Precio,
                 forma_pago: method_payment.descripcion,
                 pago_efectivo: turns_days.pago_efectivo,
-                pago_transferencia: turns_days.pago_transferencia
+                pago_transferencia: turns_days.pago_transferencia,
+                precio_unitario_servicio: turns_days.precio_unitario_servicio
             })
             .from(turns_days)
             .leftJoin(turns, eq(turns.Id, turns_days.id_turno))
@@ -241,7 +246,8 @@ const getAllTurnsByWeekAndBarber = async (req, res) => {
                 precio: services.Precio,
                 forma_pago: method_payment.descripcion,
                 pago_efectivo: turns_days.pago_efectivo,
-                pago_transferencia: turns_days.pago_transferencia
+                pago_transferencia: turns_days.pago_transferencia,
+                precio_unitario_servicio: turns_days.precio_unitario_servicio
             })
             .from(turns_days)
             .leftJoin(turns, eq(turns.Id, turns_days.id_turno))
